@@ -55,8 +55,9 @@ def test_get_weather_info_using_invalid_url():
     response = requests.get("https://goweather.herokuapp.com/weather_1/dhaka")
     assert response.status_code == 404
 
-    # {
-    #         "day": "1",
-    #         "temperature": "+30 °C",
-    #         "wind": "8 km/h"
-    #     },
+#Test case 4: Error message is displayed for empty city name
+
+def test_get_weather_info_using_invalid_url():
+    response = requests.get("https://goweather.herokuapp.com/weather/")
+    assert response.status_code == 404
+
