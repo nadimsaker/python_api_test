@@ -1,4 +1,4 @@
-import json
+
 import requests
 
 
@@ -7,7 +7,7 @@ def test_weather_info_api_status():
     assert response.status_code == 200
     
 #Test case 1: User should be able to get weather information of a given city
-def test_weather_info():
+def test_get_weather_info_using_a_valid_city():
     #get weather information for the city "dhaka"
     response = requests.get("https://goweather.herokuapp.com/weather/dhaka").json()
 
@@ -29,8 +29,9 @@ def test_weather_info():
     assert response["forecast"][0]["temperature"] != "", "temperature is empty"  
     assert response["forecast"][0]["wind"] != "", "wind is empty"  
 
+
 #Test case 2: No weather infromation is displayed if given an invalid city name 
-def test_weather_info_using_city_name():
+def test_weather_info_using_invalid_city_name():
     response = requests.get("https://goweather.herokuapp.com/weather/invalidcity").json()
 
     assert response["temperature"] == "", "temperature is not empty"
@@ -48,6 +49,11 @@ def test_weather_info_using_city_name():
     assert response["forecast"][0]["temperature"] == "", "temperature is not empty"  
     assert response["forecast"][0]["wind"] == "", "wind is not empty"  
 
+
+#Test case 3: Error message is displayed for invalid URL
+def test_get_weather_info_using_invalid_url():
+    response = requests.get("https://goweather.herokuapp.com/weather_1/dhaka")
+    assert response.status_code == 404
 
     # {
     #         "day": "1",
